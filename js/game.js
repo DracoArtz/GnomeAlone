@@ -19,6 +19,7 @@ var wall = new GameObject();
 var level = new GameObject();
 var platform = new GameObject();
 var platform1 = new GameObject();
+var platform2 = new GameObject();
 
 var platforms = [];
 
@@ -28,37 +29,49 @@ function init()
 {
     state = menu
 
-    avatar.color = `green`;
+    avatar.color = `orange`;
+    avatar.x = -1500
+    avatar.y = 100
+    avatar.w = 45
+    avatar.h = 55
 
     level.x = 0; 
     level.y = 0;
 
-    ground.color = `brown`;
-    ground.w = 1500;
+    ground.color = `green`;
+    ground.w = 4000;
     ground.h = c.height*.25;
     ground.y = c.height - ground.h/2;
     ground.world = level
 
     wall.h = 200;
     wall.w = 34;
-    wall.color = `purple`
+    wall.color = `blue`
     wall.x = 600;
     wall.world = level
     
     platform.w = 200;
     platform.h = 34;
-    platform.color = `tan`
+    platform.color = `blue`
     platform.world = level
 
     platform1.h = 30;
     platform1.w = 200;
-    platform1.color = `orange`
+    platform1.color = `blue`
     platform1.x = 100;
     platform1.y = 100;
     platform1.world = level
+    
+    platform2.h = 1000;
+    platform2.w = 100;
+    platform2.color = `green`
+    platform2.x = -1600;
+    platform2.y = 100;
+    platform2.world = level
 
     platforms[0] = platform;
     platforms[1] = platform1;
+    platforms[2] = platform2;
 
 }
 
@@ -119,7 +132,9 @@ function game()
         avatar.vx = 0;
         avatar.x--;
         offset.x--;
+    
     }
+   
     
 
     /*-------Level movement threshold----*/
@@ -144,6 +159,7 @@ function game()
 
     ground.render();
     for(var i = 0; i<platforms.length; i++){
+        platforms[i].render();
         while(platforms[i].isOverPoint(avatar.bottom()) && avatar.vy >= 0)
         {
         avatar.vy = 0;
@@ -151,11 +167,11 @@ function game()
         offset.y--;
         avatar.canJump = true;
         }
-        platforms[i].render();
+        
+        
     }
     wall.render();
     avatar.render();
-    
 }
 
 
