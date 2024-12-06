@@ -14,6 +14,10 @@ function main()
 var state;
 var button = new GameObject();
 
+//imgs
+var cloud = document.getElementById("cloud");
+var gnome = document.getElementById("gnome");
+
 var score = 0;
 
 var avatar = new GameObject();
@@ -53,11 +57,8 @@ function init()
 {
     state = menu
 
-    ctx.fillText(`You win and all the other gnomes`,c.width/2 , c.height/4);
-    ctx.fillText(`worship you as their monarch.`,c.width/2 , c.height/2);
-    ctx.fillStyle = "black";
-    ctx.textAlign = `center`;
-    ctx.font = '50px Arial';
+    button.color = 'green';
+    button.y = 400
 
     background.color = 'lightblue';
     background.x = c.y;
@@ -66,10 +67,10 @@ function init()
     background.h = 100000;
     
     avatar.color = `orange`;
-    avatar.x = -1500
-    avatar.y = 100
-    avatar.w = 45
-    avatar.h = 55
+    avatar.x = -1500;
+    avatar.y = 100;
+    avatar.w = 70;
+    avatar.h = 70;
 
     level.x = 0; 
     level.y = 0;
@@ -236,6 +237,7 @@ function menu()
     if(clicked(button))
     {
         state = game;
+    
     }
     button.render()
 }
@@ -244,16 +246,39 @@ function win()
 {
     ctx.fillText(`You win and all the other gnomes`,c.width/2 , c.height/4);
     ctx.fillText(`worship you as their monarch.`,c.width/2 , c.height/2);
+    ctx.fillText(`Click the button to restart.`,c.width/2 , c.height);
     ctx.fillStyle = "black";
     ctx.textAlign = `center`;
     ctx.font = '50px Arial';
 
-    start.h = c.height;
-    start.w = c.width;
-    start.color = `#5e2d11`
-    start.x = 0;
-    start.y = 0;
-    // start.world = level
+    avatar.x = -1500;
+    avatar.y = 100;
+
+    if(clicked(button))
+        {
+            score = 0;
+
+            state = game;
+
+            tool.x = -1000
+            tool.y = -50
+            
+            tool1.x = -300;
+            tool1.y = -300;
+        
+            tool2.x = -1000;
+            tool2.y = -50;
+
+            tool3.x = -1000;
+            tool3.y = -50;
+
+            elevator.x = -500;
+            elevator.y = 300;
+            elevatorUp = false;
+
+        }
+        button.render()
+
 }
 function lose()
 {
@@ -402,7 +427,14 @@ function game()
         }
     }
     if(score == 4){
-        state = win;
+        level.x = -100;
+        level.y = 0;
+
+            avatar.x = -1500;
+            avatar.y = 100;
+
+
+            state = win;
     }
     
 
@@ -461,9 +493,9 @@ function game()
     }
     
     wall.render();
-    avatar.render();
-    elevator.render();
-    escalator.render();
+    avatar.renderImage(gnome);
+    elevator.renderImage(cloud);
+    escalator.renderImage(cloud);
 }
 
 
